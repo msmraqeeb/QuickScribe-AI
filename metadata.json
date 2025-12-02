@@ -1,0 +1,7 @@
+{
+  "name": "QuickScribe AI",
+  "description": "Professional AI tools for your audio and video content including subtitle generation, translation, and editing.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
