@@ -2,7 +2,20 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Subtitle } from '../types';
 import { parseSRT, timeToSeconds } from '../utils/srtHelpers';
 
-const API_KEY = process.env.API_KEY || '';
+// Robust API Key retrieval supporting Vite (import.meta.env) and standard Node/Webpack (process.env)
+const getApiKey = (): string => {
+  if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+    return process.env.API_KEY;
+  }
+  // @ts-ignore - Vite specific
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_KEY) {
+    // @ts-ignore
+    return import.meta.env.VITE_API_KEY;
+  }
+  return '';
+};
+
+const API_KEY = getApiKey();
 
 // Robust MIME type mapper
 const getMimeType = (file: File): string => {
